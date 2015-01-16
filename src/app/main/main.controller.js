@@ -47,7 +47,18 @@ angular.module('qiitaNewpostReader')
       $ionicScrollDelegate.$getByHandle('subScroll').scrollTop();
       $scope.post_modal.show();
     };
-    $scope.closePostModal = function() {
+
+    var displayed = false;
+    $scope.closePostModal = function(show_message) {
+      // メッセージを表示
+      if (show_message && !displayed) {
+        $ionicLoading.show({
+          template: '画面のどこかをタッチして閉じることもできます。',
+          noBackdrop: true,
+          duration: 3000
+        });
+        displayed = true;
+      }
       $scope.post_modal.hide();
     };
     $scope.$on("$destroy", function() {

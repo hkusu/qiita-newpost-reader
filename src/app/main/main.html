@@ -14,7 +14,6 @@
     <a
       class="button button-outline button-light button-small"
       ng-href="http://qiita.com"
-      target="_blank"
       >
       <font size="1px">
         本サイトへ
@@ -73,7 +72,7 @@
       <ion-header-bar align-title="center" class="bar-balanced">
         <h1 class="title">{{modal_title}}</h1>
         <div class="buttons">
-          <button class="button button-clear" ng-click="closePostModal()">
+          <button class="button button-clear" ng-click="closePostModal(1)">
             <font size="5px">
               <i class="ion-close"></i>
             </font>
@@ -94,13 +93,13 @@
           <a
             class="button button-balanced button-small"
             ng-href="{{modal_url}}"
-            target="_blank"
             >
             <font size="1px">
               本サイトで読む（ストックもここから）
             </font>
           </a>
         </div>
+        <br>
       </ion-content>
     </ion-modal-view>
   </script>
@@ -129,16 +128,12 @@
           </font>
           <br><br>
           <i class="ion-social-octocat"></i>
-          <a ng-href="https://github.com/hkusu/qiita-newpost-reader"
-             target="_blank"
-            >
+          <a ng-href="https://github.com/hkusu/qiita-newpost-reader">
             hkusu/qiita-newpost-reader
           </a>
           <br><br>
           <i class="ion-person"></i>
-          <a ng-href="https://hkusu.github.io"
-             target="_blank"
-            >
+          <a ng-href="https://hkusu.github.io">
             hkusu.github.io
           </a>
         </div>
