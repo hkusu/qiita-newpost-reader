@@ -1,10 +1,12 @@
 <ion-header-bar align-title="center" class="bar-balanced">
   <div class="buttons">
     <a
-      class="button button-clear button-light button-small"
+      class="button button-clear button-light"
       ng-click="openInfoModal()"
       >
-      <i class="ion-information-circled"></i>
+      <font size="5px">
+        <i class="ion-information-circled"></i>
+      </font>
     </a>
   </div>
   <h1 class="title">Qiita 新着投稿</h1>
@@ -12,6 +14,7 @@
     <a
       class="button button-outline button-light button-small"
       ng-href="http://qiita.com"
+      target="_blank"
       >
       <font size="1px">
         本サイトへ
@@ -33,7 +36,6 @@
       pull to refresh..
     </font>
   </div>
-
   <ion-list>
     <ion-item ng-repeat="item in items"
               can-swipe="false"
@@ -60,7 +62,6 @@
     </ion-item>
   </ion-list>
   <ion-infinite-scroll
-    ng-if="initial_loaded"
     on-infinite="load(next_page)"
     distance="20%"
     >
@@ -73,7 +74,9 @@
         <h1 class="title">{{modal_title}}</h1>
         <div class="buttons">
           <button class="button button-clear" ng-click="closePostModal()">
-            <i class="ion-close"></i>
+            <font size="5px">
+              <i class="ion-close"></i>
+            </font>
           </button>
         </div>
       </ion-header-bar>
@@ -86,6 +89,18 @@
         <h4><font color="#3cb371">{{modal_title}}</font></h4>
         <hr>
         <div class="markdown" marked="modal_body|emoji"></div>
+        <br>
+        <div align="center">
+          <a
+            class="button button-balanced button-small"
+            ng-href="{{modal_url}}"
+            target="_blank"
+            >
+            <font size="1px">
+              本サイトで読む（ストックもここから）
+            </font>
+          </a>
+        </div>
       </ion-content>
     </ion-modal-view>
   </script>
@@ -97,23 +112,29 @@
         <h1 class="title">About</h1>
         <div class="buttons">
           <button class="button button-clear" ng-click="closeInfoModal()">
-            <i class="ion-close"></i>
+            <font size="5px">
+              <i class="ion-close"></i>
+            </font>
           </button>
         </div>
       </ion-header-bar>
       <ion-content
         padding="true"
-        style="background: floralwhite; padding: 30px 10px 10px 70px"
+        style="background: floralwhite; padding: 20px 50px 10px 50px"
         ng-click="closeInfoModal()"
         >
         <div align="left">
+          <font color="gray">
+            Qiita の新着投稿を表示するアプリケーション(非公式)です。
+          </font>
+          <br><br>
           <i class="ion-social-octocat"></i>
           <a ng-href="https://github.com/hkusu/qiita-newpost-reader"
              target="_blank"
             >
             hkusu/qiita-newpost-reader
           </a>
-          <br>
+          <br><br>
           <i class="ion-person"></i>
           <a ng-href="https://hkusu.github.io"
              target="_blank"

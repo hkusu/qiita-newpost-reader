@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('qiitaNewpostReader')
-  .controller('MainCtrl', function ($scope, $http, $ionicLoading, $ionicModal, $ionicScrollDelegate, $timeout) {
-    // ページ下部の infinite-scroll を表示するか否かのフラグ
-    $scope.initial_loaded = false;
+  .controller('MainCtrl', function ($scope, $http, $ionicLoading, $ionicModal, $ionicScrollDelegate) {
+    $scope.next_page = 1;
 
+    // View の infinite-scroll から呼ばれる
     $scope.load = function(_page){
       // Loading... を表示
       $ionicLoading.show({
         template: 'Loading...',
         noBackdrop: true
       });
-      $http.get('https://qiita.com/api/v1/items?per_page=10&page=' + _page).success(function(items) {
+      $http.get('https://qiita.com/api/v1/items?per_page=20&page=' + _page).success(function(items) {
         // 初期表示とページ上部のリフレッシュの際はクリア
         if(_page == 1){
           $scope.items= [];
@@ -22,25 +22,17 @@ angular.module('qiitaNewpostReader')
         $ionicLoading.hide();
         // ページ上部のリフレッシュ表示を終了
         $scope.$broadcast('scroll.refreshComplete');
-        // 初期表示で infinite-scroll が有効になってしまうので、数秒まつ
-        $timeout(function() {
-          $scope.initial_loaded = true;
-        }, 1000);
-        // 数秒まってからページ下部の infinite-scroll を終了する。でないとループしてしまうため
-        $timeout(function() {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        }, 3000);
+        // ページ下部の infinite-scroll を終了
+        $scope.$broadcast('scroll.infiniteScrollComplete');
 
         $scope.next_page = _page + 1;
       });
     };
 
-    // 初期表示
-    $scope.load(1);
-
     // 記事詳細 モーダル表示
     $scope.modal_title = "";
     $scope.modal_body = ""; // bodyの方はマークダウン(コードハイライト付き)＆絵文字を表示
+    $scope.modal_url = "";
     $ionicModal.fromTemplateUrl("post.modal.html", {
       scope: $scope,
       animation: "slide-in-up"
@@ -50,6 +42,7 @@ angular.module('qiitaNewpostReader')
     $scope.openPostModal = function(index) {
       $scope.modal_title = $scope.items[index].title;
       $scope.modal_body = $scope.items[index].raw_body;
+      $scope.modal_url = $scope.items[index].url;
       // スクロールをTOPへ。ハンドルを指定して、背後の ScrollView がTOPにスクロールされないようにする
       $ionicScrollDelegate.$getByHandle('subScroll').scrollTop();
       $scope.post_modal.show();
