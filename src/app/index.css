@@ -29,3 +29,12 @@ a:link { color: gray; }
 a:visited { color: gray; }
 a:hover { color: #ff0000; }
 a:active { color: #ff8000; }
+
+.tag {
+  color: white;
+  background-color: gray;
+  padding: 0 0 0 2px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}

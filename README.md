@@ -1,4 +1,4 @@
-This project has been created in [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular) and [ionic](http://ionicframework.com/).
+This is an application for mobile to display the New Posts of Qiita. This project has been created in [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular) and [ionic](http://ionicframework.com/).
 
 ### Demo
 
