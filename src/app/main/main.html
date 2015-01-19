@@ -52,7 +52,14 @@
           &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
         </font>
       </h5>
-      <h6><br></h6>
+      <h5>
+        <span ng-repeat="tag in item.tags">
+          <span class="tag">
+            {{tag.name}}
+          </span>
+          &nbsp;
+        </span>
+      </h5>
       <h4>
         <font color="gray">
           {{item.raw_body}}
@@ -85,14 +92,26 @@
         style="background: floralwhite; padding: 0 10px 10px 10px"
         ng-click="closePostModal()"
         >
-        <h4><font color="#3cb371">{{modal_title}}</font></h4>
+        <h4><font color="#3cb371">{{item.title}}</font></h4>
+        <h6>
+          <span ng-repeat="tag in item.tags">
+            <span class="tag">
+              {{tag.name}}
+            </span>
+            &nbsp;
+          </span>
+        </h6>
+        <img ng-src="{{item.user.profile_image_url}}" width="12">
+        <font color="gray" size="1px">
+          {{item.user.url_name}} が {{item.created_at_in_words}}前 に投稿しました。
+        </font>
         <hr>
         <div class="markdown" marked="modal_body|emoji"></div>
         <br>
         <div align="center">
           <a
             class="button button-balanced button-small"
-            ng-href="{{modal_url}}"
+            ng-href="{{item.url}}"
             >
             <font size="1px">
               本サイトで読む（ストックもここから）

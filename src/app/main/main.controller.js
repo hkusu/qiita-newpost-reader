@@ -30,9 +30,7 @@ angular.module('qiitaNewpostReader')
     };
 
     // 記事詳細 モーダル表示
-    $scope.modal_title = "";
-    $scope.modal_body = ""; // bodyの方はマークダウン(コードハイライト付き)＆絵文字を表示
-    $scope.modal_url = "";
+    $scope.modal_body = "";
     $ionicModal.fromTemplateUrl("post.modal.html", {
       scope: $scope,
       animation: "slide-in-up"
@@ -40,14 +38,13 @@ angular.module('qiitaNewpostReader')
       $scope.post_modal = modal;
     });
     $scope.openPostModal = function(index) {
-      $scope.modal_title = $scope.items[index].title;
+      // マークダウン(コードハイライトつき)＆絵文字を表示。初期時に値が無いとエラーになるので他の項目とは別途で
       $scope.modal_body = $scope.items[index].raw_body;
-      $scope.modal_url = $scope.items[index].url;
+      $scope.item = $scope.items[index];
       // スクロールをTOPへ。ハンドルを指定して、背後の ScrollView がTOPにスクロールされないようにする
       $ionicScrollDelegate.$getByHandle('subScroll').scrollTop();
       $scope.post_modal.show();
     };
-
     var displayed = false;
     $scope.closePostModal = function(show_message) {
       // メッセージを表示
