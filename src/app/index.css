@@ -38,3 +38,21 @@ a:active { color: #ff8000; }
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
 }
+
+.item-avatar-left {
+  padding-left: 45px;
+  min-height: 45px; }
+.item-avatar-left > img:first-child {
+  max-width: 20px;
+  max-height: 20px;
+  border-radius: 20%;
+}
+
+.message {
+  color: white;
+  background-color: palevioletred;
+  padding: 2px 10px 2px 10px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}

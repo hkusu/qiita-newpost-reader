@@ -12,11 +12,11 @@
   <h1 class="title">Qiita 新着投稿</h1>
   <div class="buttons">
     <a
-      class="button button-outline button-light button-small"
-      ng-href="http://qiita.com"
+      class="button button-clear button-light"
+      ng-click="openSearchModal()"
       >
-      <font size="1px">
-        本サイトへ
+      <font size="5px">
+        <i class="ion-search"></i>
       </font>
     </a>
   </div>
@@ -27,18 +27,27 @@
   style="background: floralwhite; margin-top: -10px"
   >
   <ion-refresher
-    on-refresh="load(1)"
+    on-refresh="load(1,search_keyword)"
     >
   </ion-refresher>
   <div align="center">
     <font size="1px" color="gray">
+      <i class="ion-android-arrow-dropdown-circle"></i>
       pull to refresh..
     </font>
+  </div>
+  <div align="center" ng-if="message != ''" style="margin: 5px 0 10px 0">
+    <span class="message">
+      {{message}}&nbsp;
+      <font size="1px" ng-click="load(1,'')">
+        <u>新着投稿へ戻る</u>
+      </font>
+    </span>
   </div>
   <ion-list>
     <ion-item ng-repeat="item in items"
               can-swipe="false"
-              class="item-thumbnail-left" ng-click="openPostModal($index)">
+              class="item-avatar-left" ng-click="openPostModal($index)">
       <img ng-src="{{item.user.profile_image_url}}">
       <h5>
         <font color="gray">
@@ -47,9 +56,17 @@
       </h5>
       <h3><font color="#3cb371">{{item.title}}</font></h3>
       <h5>
-        <font color="gray">
+        <font color="#ff4500" ng-if="item.stock_count >= 10">
           <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
-          &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
+        </font>
+        <font color="orange" ng-if="item.stock_count < 10 && item.stock_count >= 3">
+          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+        </font>
+        <font color="gray" ng-if="item.stock_count < 3">
+          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+        </font>
+        <font color="gray">
+          &nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
         </font>
       </h5>
       <h4>
@@ -68,7 +85,7 @@
     </ion-item>
   </ion-list>
   <ion-infinite-scroll
-    on-infinite="load(next_page)"
+    on-infinite="load(next_page,search_keyword)"
     distance="20%"
     >
   </ion-infinite-scroll>
@@ -77,7 +94,7 @@
   <script id="post.modal.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar align-title="center" class="bar-balanced">
-        <h1 class="title">{{modal_title}}</h1>
+        <h1 class="title">{{item.title}}</h1>
         <div class="buttons">
           <button class="button button-clear" ng-click="closePostModal(1)">
             <font size="5px">
@@ -154,6 +171,67 @@
           <i class="ion-person"></i>
           <a ng-href="https://hkusu.github.io">
             hkusu.github.io
+          </a>
+        </div>
+        <br>
+        <div align="center">
+          <a
+            class="button button-balanced button-small"
+            ng-href="http://qiita.com"
+            >
+            <font size="1px">
+              本サイト（qiita.com）へ
+            </font>
+          </a>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <!-- 検索 モーダル表示 -->
+  <script id="search.modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar align-title="center" class="bar-balanced">
+        <h1 class="title">Seach</h1>
+        <div class="buttons">
+          <button class="button button-clear" ng-click="closeSearchModal()">
+            <font size="5px">
+              <i class="ion-close"></i>
+            </font>
+          </button>
+        </div>
+      </ion-header-bar>
+      <ion-content
+        padding="true"
+        style="background: floralwhite; padding: 20px 20px 10px 20px"
+        >
+        <div align="left">
+          <font color="gray">
+            複数キーワードを指定する場合は半角または全角スペースで繋いでください。検索結果は Qiita API v1 の仕様により新着順ではなく、本サイト(qiita.com)でいう『関連度順』で表示されるようです。
+          </font>
+        </div>
+        <div align="center">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="キーワード" ng-model="keyword">
+            </label>
+          </div>
+        </div>
+        <br>
+        <div align="center">
+          <a
+            class="button button-balanced button-small"
+            ng-click="doSearch(keyword)"
+            ng-disabled="!keyword"
+            >
+            &nbsp;&nbsp;&nbsp;&nbsp;検索&nbsp;&nbsp;&nbsp;&nbsp;
+          </a>
+          <a
+            class="button button-stable button-small"
+            ng-click="closeSearchModal()"
+            >
+            &nbsp;&nbsp;閉じる&nbsp;&nbsp;
           </a>
         </div>
       </ion-content>
