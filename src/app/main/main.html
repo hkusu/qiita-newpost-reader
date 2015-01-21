@@ -38,7 +38,7 @@
   <ion-list>
     <ion-item ng-repeat="item in items"
               can-swipe="false"
-              class="item-thumbnail-left" ng-click="openPostModal($index)">
+              class="item-avatar-left" ng-click="openPostModal($index)">
       <img ng-src="{{item.user.profile_image_url}}">
       <h5>
         <font color="gray">
@@ -47,9 +47,17 @@
       </h5>
       <h3><font color="#3cb371">{{item.title}}</font></h3>
       <h5>
-        <font color="gray">
+        <font color="#ff4500" ng-if="item.stock_count >= 10">
           <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
-          &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
+        </font>
+        <font color="orange" ng-if="item.stock_count < 10 && item.stock_count >= 3">
+          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+        </font>
+        <font color="gray" ng-if="item.stock_count < 3">
+          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+        </font>
+        <font color="gray">
+          &nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
         </font>
       </h5>
       <h4>
@@ -77,7 +85,7 @@
   <script id="post.modal.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar align-title="center" class="bar-balanced">
-        <h1 class="title">{{modal_title}}</h1>
+        <h1 class="title">{{item.title}}</h1>
         <div class="buttons">
           <button class="button button-clear" ng-click="closePostModal(1)">
             <font size="5px">
@@ -154,6 +162,17 @@
           <i class="ion-person"></i>
           <a ng-href="https://hkusu.github.io">
             hkusu.github.io
+          </a>
+        </div>
+        <br>
+        <div align="center">
+          <a
+            class="button button-balanced button-small"
+            ng-href="http://qiita.com"
+            >
+            <font size="1px">
+              本サイト（qiita.com）へ
+            </font>
           </a>
         </div>
       </ion-content>

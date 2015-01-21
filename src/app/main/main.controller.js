@@ -69,7 +69,7 @@ angular.module('qiitaNewpostReader')
     }).then(function(modal) {
       $scope.info_modal = modal;
     });
-    $scope.openInfoModal = function(index) {
+    $scope.openInfoModal = function() {
       $scope.info_modal.show();
     };
     $scope.closeInfoModal = function() {
