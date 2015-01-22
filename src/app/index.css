@@ -43,7 +43,7 @@ a:hover { color: #ff0000; }
 a:active { color: #ff8000; }
 
 .tag {
-  font-size: 2px;
+  font-size: 0.8em;
   color: white;
   background-color: gray;
   padding: 2px 2px 2px 2px;
