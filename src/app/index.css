@@ -21,6 +21,18 @@
   font-size: 0.8em;
 }
 
+.markdown h1 {
+  color: #3cb371;
+  font-size: 2.0em;
+}
+.markdown h2 {
+  color: yellowgreen;
+  font-size: 1.7em;
+}
+.markdown h3 {
+  font-size: 1.4em;
+}
+
 .markdown i.emoji {
   vertical-align: middle;
 }

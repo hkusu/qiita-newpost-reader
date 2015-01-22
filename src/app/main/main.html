@@ -189,6 +189,13 @@
               本サイト（qiita.com）へ
             </font>
           </a>
+          <br><br>
+          <a
+            class="button button-stable button-small"
+            ng-click="closeInfoModal()"
+            >
+            &nbsp;&nbsp;閉じる&nbsp;&nbsp;
+          </a>
         </div>
       </ion-content>
     </ion-modal-view>
@@ -218,28 +225,35 @@
         </div>
         <div align="center">
           <div class="list list-inset">
-            <label class="item item-input">
-              <i class="icon ion-search placeholder-icon"></i>
-              <input type="text" placeholder="キーワード" ng-model="keyword">
-            </label>
+            <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="キーワード" ng-model="keyword">
+              </label>
+              <button class="button button-clear button-small" ng-click="keyword=''">
+                clear
+              </button>
+            </div>
           </div>
         </div>
         <br>
         <div align="center">
           <a
-            class="button button-balanced button-small"
+            class="button button-balanced"
             ng-click="doSearch(keyword)"
             ng-disabled="!keyword"
             >
             &nbsp;&nbsp;&nbsp;&nbsp;検索&nbsp;&nbsp;&nbsp;&nbsp;
           </a>
+          &nbsp;
           <a
-            class="button button-stable button-small"
+            class="button button-stable"
             ng-click="closeSearchModal()"
             >
             &nbsp;&nbsp;閉じる&nbsp;&nbsp;
           </a>
         </div>
+        <br><br><br><br><br><br><br><br><br><br>
       </ion-content>
     </ion-modal-view>
   </script>
