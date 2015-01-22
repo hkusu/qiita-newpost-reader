@@ -48,15 +48,24 @@
     <ion-item ng-repeat="item in items"
               can-swipe="false"
               class="item-avatar-left">
+
+
+
       <img ng-src="{{item.user.profile_image_url}}" ng-click="load(1,'','','',item.user.url_name)">
+
+
       <h5>
         <font color="gray">
           {{item.user.url_name}} が {{item.created_at_in_words}}前 に投稿しました。
         </font>
       </h5>
+
+
       <h3 ng-click="openPostModal($index)">
         <font color="#3cb371">{{item.title}}</font>
       </h3>
+
+
       <h5>
         <font color="#ff4500" ng-if="item.stock_count >= 10">
           <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
@@ -71,6 +80,8 @@
           &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
         </font>
       </h5>
+
+
       <h4>
         <span ng-repeat="tag in item.tags">
           <span class="tag" ng-click="load(1,'',tag.url_name,tag.name,'')">
@@ -79,11 +90,15 @@
           &nbsp;
         </span>
       </h4>
+
+
       <h4>
         <font color="gray">
           {{item.raw_body}}
         </font>
       </h4>
+
+
     </ion-item>
   </ion-list>
   <ion-infinite-scroll
