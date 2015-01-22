@@ -115,23 +115,22 @@
         delegate-handle="subScroll"
         padding="true"
         style="background: floralwhite; padding: 0 10px 10px 10px"
-        ng-click="closePostModal()"
         >
         <h4><font color="#3cb371">{{item.title}}</font></h4>
         <h6>
-          <span ng-repeat="tag in item.tags">
+          <span ng-repeat="tag in item.tags" ng-click="doTagSearch(tag.url_name,tag.name)">
             <span class="tag">
               {{tag.name}}
             </span>
             &nbsp;
           </span>
         </h6>
-        <img ng-src="{{item.user.profile_image_url}}" width="12">
+        <img ng-src="{{item.user.profile_image_url}}" width="12" ng-click="doUserSearch(item.user.url_name)">
         <font color="gray" size="1px">
-          {{item.user.url_name}} が {{item.created_at_in_words}}前 に投稿しました。
+          <span ng-click="doUserSearch(item.user.url_name)">{{item.user.url_name}}</span> が {{item.created_at_in_words}}前 に投稿しました。
         </font>
         <hr>
-        <div class="markdown" marked="modal_body|emoji"></div>
+        <div class="markdown" marked="modal_body|emoji" ng-click="closePostModal()"></div>
         <br>
         <div align="center">
           <a
@@ -244,7 +243,7 @@
         <div align="center">
           <a
             class="button button-balanced"
-            ng-click="doSearch(keyword)"
+            ng-click="doKeywordSearch(keyword)"
             ng-disabled="!keyword"
             >
             &nbsp;&nbsp;&nbsp;&nbsp;検索&nbsp;&nbsp;&nbsp;&nbsp;

@@ -87,12 +87,6 @@ angular.module('qiitaNewpostReader')
       });
     };
 
-    // 検索ボタン
-    $scope.doSearch = function(_keyword){
-      $scope.load(1, _keyword, '', '', '');
-      $scope.search_modal.hide();
-    };
-
     // 記事詳細 モーダル表示
     $scope.modal_body = "";
     $ionicModal.fromTemplateUrl("post.modal.html", {
@@ -125,6 +119,16 @@ angular.module('qiitaNewpostReader')
     $scope.$on("$destroy", function() {
       $scope.post_modal.remove();
     });
+    // タグをクリック
+    $scope.doTagSearch = function(_tag_url, _tag_name) {
+      $scope.load(1, '', _tag_url, _tag_name, '');
+      $scope.post_modal.hide();
+    };
+    // ユーザをクリック
+    $scope.doUserSearch = function(_user_url) {
+      $scope.load(1, '', '', '', _user_url);
+      $scope.post_modal.hide();
+    };
 
     // info モーダル表示
     $ionicModal.fromTemplateUrl("info.modal.html", {
@@ -159,4 +163,9 @@ angular.module('qiitaNewpostReader')
     $scope.$on("$destroy", function() {
       $scope.search_modal.remove();
     });
+    // 検索ボタン
+    $scope.doKeywordSearch = function(_keyword) {
+      $scope.load(1, _keyword, '', '', '');
+      $scope.search_modal.hide();
+    };
   });
