@@ -21,6 +21,18 @@
   font-size: 0.8em;
 }
 
+.markdown h1 {
+  color: #3cb371;
+  font-size: 2.0em;
+}
+.markdown h2 {
+  color: yellowgreen;
+  font-size: 1.7em;
+}
+.markdown h3 {
+  font-size: 1.4em;
+}
+
 .markdown i.emoji {
   vertical-align: middle;
 }
@@ -31,6 +43,7 @@ a:hover { color: #ff0000; }
 a:active { color: #ff8000; }
 
 .tag {
+  font-size: 2px;
   color: white;
   background-color: gray;
   padding: 2px 2px 2px 2px;
@@ -50,7 +63,7 @@ a:active { color: #ff8000; }
 
 .message {
   color: white;
-  background-color: palevioletred;
+  background-color: yellowgreen;
   padding: 2px 10px 2px 10px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
