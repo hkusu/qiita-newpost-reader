@@ -85,10 +85,16 @@
     </ion-item>
   </ion-list>
   <ion-infinite-scroll
+    ng-if="show_infinite"
     on-infinite="load(next_page,search_keyword)"
     distance="20%"
     >
   </ion-infinite-scroll>
+  <div ng-if="!show_infinite" align="center">
+    <font size="1px" color="gray">
+      これ以上データはありません。
+    </font>
+  </div>
 
   <!-- 記事詳細 モーダル表示 -->
   <script id="post.modal.html" type="text/ng-template">

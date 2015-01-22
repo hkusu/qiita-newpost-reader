@@ -5,7 +5,9 @@ angular.module('qiitaNewpostReader')
     $scope.next_page = 1;
     $scope.search_keyword = "";
     $scope.message = "";
+    $scope.show_infinite = true;
     var api_url = "";
+    var PER_PAGE = 20;
 
     // 初期表示は View の infinite-scroll から呼ばれる
     $scope.load = function(_page, _keyword){
@@ -14,30 +16,42 @@ angular.module('qiitaNewpostReader')
         template: 'Loading...',
         noBackdrop: true
       });
+      // キーワードありなしで対象APIを変更
       if (_keyword == ""){
         api_url = 'https://qiita.com/api/v1/items?';
-        $scope.search_keyword = "";
       } else {
         api_url = 'https://qiita.com/api/v1/search?' + 'q=' + _keyword + '&';
       }
-      $http.get(api_url + 'per_page=20&page=' + _page).success(function(items) {
-        // 結果が 0 件の場合
-        if (items.length==0) {
-          $ionicLoading.show({
-            template: '検索に一致する投稿はありません。',
-            noBackdrop: true,
-            duration: 2000
-          });
-          return;
-        }
-        // 初期表示とページ上部のリフレッシュの際はクリア
+      // APIリクエストを発行
+      $http.get(api_url + 'per_page=' + PER_PAGE + '&page=' + _page).success(function(items) {
+        // 1ページ目の場合
         if (_page == 1){
+          // 表示すべき内容が無い場合はメッセージを表示して終了
+          if (items.length == 0) {
+            $ionicLoading.show({
+              template: '検索に一致する投稿はありません。',
+              noBackdrop: true,
+              duration: 2000
+            });
+            return;
+          }
+          // 内容をクリア
           $scope.items= [];
+          // キーワード検索の場合は一覧のスクロールをTOPへ
+          if (_keyword != ""){
+            $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
+          }
+        }
+        // Loading... を隠す
+        $ionicLoading.hide();
+        // infinite-scroll 欄の表示/非表示
+        if (items.length == PER_PAGE) {
+          $scope.show_infinite = true;
+        } else {
+          $scope.show_infinite = false;
         }
         // 既存の内容に結合
         $scope.items = $scope.items.concat(items);
-        // Loading... を隠す
-        $ionicLoading.hide();
         // ページ上部のリフレッシュ表示を終了
         $scope.$broadcast('scroll.refreshComplete');
         // ページ下部の infinite-scroll を終了
@@ -48,17 +62,15 @@ angular.module('qiitaNewpostReader')
         } else {
           $scope.message = '"' + _keyword + '"' + ' での検索結果'
         }
+        // ページ上部のリフレッシュおよび下部の infinite-scroll 向けに view へ値をセット
         $scope.next_page = _page + 1;
+        $scope.search_keyword = _keyword;
       });
     };
 
     // 検索ボタン
     $scope.doSearch = function(_keyword){
-      // 一覧のスクロールをTOPへ
-      $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
-      $scope.next_page = 1;
-      $scope.search_keyword = _keyword;
-      $scope.load($scope.next_page, $scope.search_keyword);
+      $scope.load(1, _keyword);
       $scope.search_modal.hide();
     };
 
