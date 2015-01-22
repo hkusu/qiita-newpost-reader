@@ -24,7 +24,7 @@
 <ion-content
   delegate-handle="mainScroll"
   padding="true"
-  style="background: floralwhite; margin-top: -10px"
+  style="background: lightgoldenrodyellow; margin-top: -10px"
   >
   <ion-refresher
     on-refresh="load(1,search_keyword,tag_url,tag_name,user_url)"
@@ -44,63 +44,72 @@
       </font>
     </span>
   </div>
-  <ion-list>
-    <ion-item ng-repeat="item in items"
-              can-swipe="false"
-              class="item-avatar-left">
-
-
-
-      <img ng-src="{{item.user.profile_image_url}}" ng-click="load(1,'','','',item.user.url_name)">
-
-
-      <h5>
-        <font color="gray">
-          {{item.user.url_name}} が {{item.created_at_in_words}}前 に投稿しました。
-        </font>
-      </h5>
-
-
-      <h3 ng-click="openPostModal($index)">
-        <font color="#3cb371">{{item.title}}</font>
-      </h3>
-
-
-      <h5>
-        <font color="#ff4500" ng-if="item.stock_count >= 10">
-          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
-        </font>
-        <font color="orange" ng-if="item.stock_count < 10 && item.stock_count >= 3">
-          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
-        </font>
-        <font color="gray" ng-if="item.stock_count < 3">
-          <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
-        </font>
-        <font color="gray">
-          &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
-        </font>
-      </h5>
-
-
-      <h4>
-        <span ng-repeat="tag in item.tags">
-          <span class="tag" ng-click="load(1,'',tag.url_name,tag.name,'')">
-            {{tag.name}}
+  <div class="row"
+       ng-repeat="item in items"
+       style="background: floralwhite; margin-bottom: 12px"
+    >
+    <div class="col col-10" style="">
+      <img ng-src="{{item.user.profile_image_url}}" ng-click="load(1,'','','',item.user.url_name)" width="100%">
+    </div>
+    <div class="col" style="margin: -5px -5px -10px 0">
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col" style="margin: -10px">
+          <b>
+            <font color="gray" size="2px" ng-click="load(1,'','','',item.user.url_name)">
+              {{item.user.url_name}}
+            </font>
+          </b>
+        </div>
+        <div class="col col-30" align="right" style="margin: -10px">
+          <font color="gray" size="1px">
+            {{item.created_at_in_words}}
+          </font>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 15px" ng-click="openPostModal($index)">
+        <div class="col" style="margin: -10px">
+          <font color="#3cb371" size="3px">
+            {{item.title}}
+          </font>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col" style="margin: -10px">
+          <span ng-repeat="tag in item.tags">
+            <span class="tag" ng-click="load(1,'',tag.url_name,tag.name,'')">
+              {{tag.name}}
+            </span>
+            &nbsp;
           </span>
-          &nbsp;
-        </span>
-      </h4>
-
-
-      <h4>
-        <font color="gray">
-          {{item.raw_body}}
-        </font>
-      </h4>
-
-
-    </ion-item>
-  </ion-list>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col" style="margin: -10px">
+          <font color="#ff4500" size="1px" ng-if="item.stock_count >= 10">
+            <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+          </font>
+          <font color="orange" size="1px" ng-if="item.stock_count < 10 && item.stock_count >= 3">
+            <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+          </font>
+          <font color="gray" size="1px" ng-if="item.stock_count < 3">
+            <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
+          </font>
+          <font color="gray" size="1px">
+            &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
+          </font>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 5px">
+        <div class="col" style="margin: -10px">
+          <font color="gray" size="1px">
+            <div class="item-content">
+              {{item.raw_body}}
+            </div>
+          </font>
+        </div>
+      </div>
+    </div>
+  </div>
   <ion-infinite-scroll
     ng-if="show_infinite"
     on-infinite="load(next_page,search_keyword,tag_url,tag_name,user_url)"
@@ -131,7 +140,9 @@
         padding="true"
         style="background: floralwhite; padding: 0 10px 10px 10px"
         >
-        <h4><font color="#3cb371">{{item.title}}</font></h4>
+        <h4 ng-click="closePostModal()">
+          <font color="#3cb371">{{item.title}}</font>
+        </h4>
         <h6>
           <span ng-repeat="tag in item.tags" ng-click="doTagSearch(tag.url_name,tag.name)">
             <span class="tag">
