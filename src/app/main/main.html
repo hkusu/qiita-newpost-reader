@@ -4,7 +4,7 @@
       class="button button-clear button-light"
       ng-click="openInfoModal()"
       >
-      <font size="5px">
+      <font size="5px" color="white">
         <i class="ion-information-circled"></i>
       </font>
     </a>
@@ -46,13 +46,13 @@
   </div>
   <div class="row"
        ng-repeat="item in items"
-       style="background: floralwhite; margin-bottom: 12px"
+       style="background: #ffffff; margin-bottom: 12px"
     >
     <div class="col col-10" style="">
       <img ng-src="{{item.user.profile_image_url}}" ng-click="load(1,'','','',item.user.url_name)" width="100%">
     </div>
     <div class="col" style="margin: -5px -5px -10px 0">
-      <div class="row" style="margin-bottom: 10px">
+      <div class="row" style="margin-bottom: 15px">
         <div class="col" style="margin: -10px">
           <b>
             <font color="gray" size="2px" ng-click="load(1,'','','',item.user.url_name)">
@@ -66,10 +66,19 @@
           </font>
         </div>
       </div>
+      <div class="row" style="margin-bottom: 12px" ng-click="openPostModal($index)">
+        <div class="col" style="margin: -10px">
+          <font color="#1e90ff" size="3px">
+            {{item.title}}
+          </font>
+        </div>
+      </div>
       <div class="row" style="margin-bottom: 15px" ng-click="openPostModal($index)">
         <div class="col" style="margin: -10px">
-          <font color="#3cb371" size="3px">
-            {{item.title}}
+          <font color="gray" size="2px">
+            <div class="item-content">
+              {{item.raw_body}}
+            </div>
           </font>
         </div>
       </div>
@@ -83,7 +92,7 @@
           </span>
         </div>
       </div>
-      <div class="row" style="margin-bottom: 10px">
+      <div class="row" style="">
         <div class="col" style="margin: -10px">
           <font color="#ff4500" size="1px" ng-if="item.stock_count >= 10">
             <i class="ion-ios-folder-outline"></i> {{item.stock_count}}
@@ -96,15 +105,6 @@
           </font>
           <font color="gray" size="1px">
             &nbsp;&nbsp;<i class="ion-ios-chatbubble-outline"></i> {{item.comment_count}}
-          </font>
-        </div>
-      </div>
-      <div class="row" style="margin-bottom: 5px">
-        <div class="col" style="margin: -10px">
-          <font color="gray" size="1px">
-            <div class="item-content">
-              {{item.raw_body}}
-            </div>
           </font>
         </div>
       </div>
@@ -141,7 +141,7 @@
         style="background: floralwhite; padding: 0 10px 10px 10px"
         >
         <h4 ng-click="closePostModal()">
-          <font color="#3cb371">{{item.title}}</font>
+          <font color="#1e90ff">{{item.title}}</font>
         </h4>
         <h6>
           <span ng-repeat="tag in item.tags" ng-click="doTagSearch(tag.url_name,tag.name)">
@@ -158,13 +158,13 @@
         <hr>
         <div class="markdown" marked="modal_body|emoji" ng-click="closePostModal()"></div>
         <br>
-        <div align="center">
+        <div align="center" ng-click="closePostModal()">
           <a
             class="button button-balanced button-small"
             ng-href="{{item.url}}"
             >
             <font size="1px">
-              本サイトで読む（ストックもここから）
+              &nbsp;本サイトで読む（ストックもここから）
             </font>
           </a>
         </div>
@@ -194,8 +194,7 @@
         <div align="left">
           <font color="gray">
             Qiita の新着投稿を表示するモバイル向けのアプリケーション(非公式)です。
-            新着投稿だけでなく、任意のキーワードでの検索も可能です。
-            また投稿ユーザやタグで検索することもできます(各アイコンをクリックしてみてください)。
+            新着投稿だけでなく任意のキーワードでの検索、ユーザー毎/タグ毎の投稿一覧を表示することができます。
           </font>
           <br><br>
           <i class="ion-social-octocat"></i>
@@ -253,7 +252,7 @@
           </font>
         </div>
         <div align="center">
-          <div class="list list-inset">
+          <div class="list list-inset" style="margin: 15px -10px -10px 0">
             <div class="item item-input-inset">
               <label class="item-input-wrapper">
                 <i class="icon ion-search placeholder-icon"></i>
@@ -282,7 +281,14 @@
             &nbsp;&nbsp;閉じる&nbsp;&nbsp;
           </a>
         </div>
-        <br><br><br><br><br><br><br><br><br><br>
+        <br>
+        <div align="left">
+          <font color="gray">
+            また<font color="#1e90ff">ユーザーアイコン</font>、<font color="#1e90ff">タグ名</font>をタッチすると、
+            それぞれの投稿一覧を表示することができます。
+          </font>
+        </div>
+        <br><br><br><br><br>
       </ion-content>
     </ion-modal-view>
   </script>
